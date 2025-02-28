@@ -13,7 +13,7 @@ declare module '@react-three/fiber' {
 
 extend({ ThreeGlobe })
 
-const RING_PROPAGATION_SPEED = 3
+// const RING_PROPAGATION_SPEED = 3
 const aspect = 1.2
 const cameraZ = 300
 
@@ -183,7 +183,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
         .showAtmosphere(defaultProps.showAtmosphere)
         .atmosphereColor(defaultProps.atmosphereColor)
         .atmosphereAltitude(defaultProps.atmosphereAltitude)
-        .hexPolygonColor(e => {
+        .hexPolygonColor(() => {
           return defaultProps.polygonColor
         })
       startAnimation()
@@ -200,18 +200,18 @@ export function Globe({ globeConfig, data }: WorldProps) {
         .arcStartLng(d => Number((d as { startLng: number }).startLng))
         .arcEndLat(d => Number((d as { endLat: number }).endLat))
         .arcEndLng(d => Number((d as { endLng: number }).endLng))
-        .arcColor((e: any) => (e as { color: string }).color)
+        .arcColor((e: unknown) => (e as { color: string }).color)
         .arcAltitude(e => {
           const alt = Number((e as { arcAlt: number }).arcAlt)
           return isNaN(alt) ? 0.1 : alt
         })
-        .arcStroke(e => {
+        .arcStroke(() => {
           return [0.32, 0.28, 0.3][Math.round(Math.random() * 2)]
         })
         .arcDashLength(defaultProps.arcLength)
         .arcDashInitialGap(e => Number((e as { order: number }).order) || 0)
         .arcDashGap(15)
-        .arcDashAnimateTime(e => defaultProps.arcTime)
+        .arcDashAnimateTime(() => defaultProps.arcTime)
 
       globeRef.current
         .pointsData(globeData)
@@ -301,12 +301,12 @@ export function World(props: WorldProps) {
 }
 
 export function hexToRgb(hex: string) {
-  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
   hex = hex.replace(shorthandRegex, function (m, r, g, b) {
     return r + r + g + g + b + b
   })
 
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   return result
     ? {
         r: parseInt(result[1], 16),
