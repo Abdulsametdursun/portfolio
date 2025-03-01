@@ -2,12 +2,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from 'three'
 import ThreeGlobe from 'three-globe'
-import { useThree, Object3DNode, Canvas, extend } from '@react-three/fiber'
+import { useThree, Canvas, extend } from '@react-three/fiber'
+import { JSX } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import countries from '@/data/globe.json'
 declare module '@react-three/fiber' {
   interface ThreeElements {
-    threeGlobe: Object3DNode<ThreeGlobe, typeof ThreeGlobe>
+    threeGlobe: JSX.IntrinsicElements['mesh'] & { object: ThreeGlobe }
   }
 }
 
@@ -247,7 +248,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
   return (
     <>
-      <threeGlobe ref={globeRef} />
+      <threeGlobe ref={globeRef} object={new ThreeGlobe()} />
     </>
   )
 }
