@@ -30,7 +30,12 @@ const Footer = () => {
         </p>
         <div className='flex items-center md:gap-3 gap-6'>
           {socialMedia.map(profile => (
-            <div key={profile.id}>
+            <a
+              key={profile.id}
+              href={profile.link}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               <Image
                 src={profile.img}
                 alt={String(profile.id) || 'Profile Image'}
@@ -38,7 +43,7 @@ const Footer = () => {
                 width={20}
                 height={20}
               />
-            </div>
+            </a>
           ))}
         </div>
       </div>
